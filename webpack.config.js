@@ -31,6 +31,7 @@ module.exports = {
 			// 解决uglifyjs报错问题
 			{
 				test: /\.js$/,
+				exclude: /(node_modules)/,
 				use: [{
 				  loader: 'babel-loader',
 				  options: {
