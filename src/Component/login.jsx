@@ -1,6 +1,6 @@
 import React from 'react';
-import { Provider, connect } from 'react-redux'; 
 import { Button } from 'antd';
+import { withRouter } from 'react-router'
 //定义组件  
 class Login extends React.Component{
     constructor(props) {
@@ -17,4 +17,4 @@ class Login extends React.Component{
 	}  
 }
 
-export default Login
+export default withRouter(Login)

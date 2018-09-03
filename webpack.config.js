@@ -10,7 +10,8 @@ module.exports = {
 	output: {
 		path: path.resolve(__dirname, 'dist'),
         publicPath: '/dist',   // 打包后寻找路径前寻找/dist
-		filename: 'js/app.js'
+        filename: 'js/[name].[chunkhash:8].bundle.js',
+        chunkFilename: 'js/[name]-[id].[chunkhash:8].bundle.js'
 	},
 	module: {
 		rules: [
