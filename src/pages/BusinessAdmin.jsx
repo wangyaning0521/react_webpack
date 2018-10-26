@@ -2,14 +2,14 @@ import React from 'react';
 import { Provider, connect } from 'react-redux'; 
 import { withRouter } from 'react-router'
 import { Button } from 'antd';
-class Bar extends React.Component{
+class BusinessAdmin extends React.Component{
     constructor(props){
         super(props)
     }
     render(){
         return(
             <div >
-                <h1>bar组件</h1>
+                <h1>业务管理</h1>
                 <h2> 路由获取 ： {this.props.match.params.num}</h2>
                 <h2> redux获取 ： {this.props.size}</h2>
                 <Button onClick={this.props.add_size}>redux 相加</Button>
@@ -35,5 +35,5 @@ function mapDispatchToProps(dispatch){
 //连接组件  
 // Bar = 
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Bar) )
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(BusinessAdmin) )
 

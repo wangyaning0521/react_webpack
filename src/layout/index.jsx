@@ -32,23 +32,23 @@ export default class Layout extends  React.Component{
             openKeys: ['sub1'],
             nav:[
                 {
-                    name:'Navigation One',
+                    name:'系统管理',
                     type:'mail',
                     menu:[
                         {
                             key:'1',
-                            label:'Option 1',
-                            path:"/",
+                            label:'账号管理',
+                            path:"/AccountAdmin",
                         },
                         {
                             key:'2',
-                            label:'Option 2',
-                            path:"/foo/123",
+                            label:'账单管理',
+                            path:"/billAdmin/123",
                         },
                         {
                             key:'3',
-                            label:'Option 3',
-                            path:"/bar/4596",
+                            label:'业务管理',
+                            path:"/BusinessAdmin/4596",
                         },
                     ]
                 }
@@ -110,8 +110,7 @@ export default class Layout extends  React.Component{
                             </a>
                         </Dropdown>
                     </Header>
-                        <Content>{this.props.children}</Content>
-                    <Footer>底部</Footer>
+                    <Content>{this.props.children}</Content>
                 </Layouts>
             </Layouts>
         );  

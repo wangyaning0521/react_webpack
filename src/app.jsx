@@ -26,7 +26,7 @@ class RouterComponent extends React.Component{
                 <Provider store={store}> 
                     <Switch>
                         <Route path='/login' component={Login} />
-                        <Route path="/" render={ ()/* props */ => LayoutRouter} />
+                        <Route path="/" render={ () => LayoutRouter} />
                     </Switch>
                 </Provider>
             </Router>

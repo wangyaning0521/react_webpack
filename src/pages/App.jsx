@@ -11,8 +11,7 @@ class App extends React.Component{
         const {size,add_size} = this.props;  
         return (  
             <div>
-                <h1>{size}</h1>
-                <Button type="primary" onClick={add_size}>click me</Button>
+                <h1>这是首页</h1>
             </div>  
         );  
 	}  
