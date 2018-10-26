@@ -1,6 +1,6 @@
 import React from 'react';
-
-export default class Foo extends React.Component{
+import { withRouter } from 'react-router'
+class Foo extends React.Component{
     constructor(props){
         super(props)
     }
@@ -13,3 +13,4 @@ export default class Foo extends React.Component{
         )
     }
 }
+export default withRouter(Foo)

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Provider, connect } from 'react-redux'; 
+import { withRouter } from 'react-router'
 import { Button } from 'antd';
 class Bar extends React.Component{
     constructor(props){
@@ -32,7 +33,7 @@ function mapDispatchToProps(dispatch){
 }  
 
 //连接组件  
-Bar = connect(mapStateToProps, mapDispatchToProps)(Bar) 
+// Bar = 
 
-export default Bar
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Bar) )
 
