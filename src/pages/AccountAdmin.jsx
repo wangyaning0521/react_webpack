@@ -21,19 +21,60 @@ class AccountAdmin extends React.Component{
         super(props)
 
         this.state = {
-            keyWorld:'这是默认属性'
+            keyWorld:'这是默认属性',
+            busi:1,
+            area:[],
+            RangePicker:[]
         }
 
-        this.handleReset = () =>{
-            this.props.form.resetFields();
-        }
-        this.inputChange = ( val ) =>{
-            this.setState({
-                [val.target.name] : val.target.value
-            })
-        }
     }
 
+    /**
+     *  @event 清空
+     */
+
+    handleReset () {
+        this.setState({
+            keyWorld : '',
+            busi:'',
+            area:[],
+            RangePicker:[]
+        })
+    }
+
+    /**
+     *  @event 通用表单
+     */
+
+    inputChange  ( val, option ) {
+       
+        let name, value;
+
+        if ( Array.prototype.isPrototypeOf( val ) ) {
+            name  = 'area'
+            value =  val
+        }
+        else{
+            name  = option ? option.ref : val.target.name
+            value = option ? val        : val.target.value
+        }
+
+        this.setState({
+            [name] : value
+        })
+    }
+
+    pickerChange( val, value){
+        this.setState({
+            RangePicker : val
+        })
+    }
+    /**
+     *  @event 搜索
+     */
+    search(){
+        console.log( this.state )
+    }
 	render() {  
         return (
             <div className='AccountAdmin'>
@@ -41,12 +82,16 @@ class AccountAdmin extends React.Component{
                     <Row>
                         <Col span={6}>
                             <FormItem
-                                
                                 {...formItemLayout} 
                                 label="关键字"
-                                
                             >
-                                <Input name='keyWorld' defaultValue={this.state.keyWorld} onChange={this.inputChange}/>
+                                <Input 
+                                    ref='keyWorld'
+                                    name='keyWorld' 
+                                    defaultValue={this.state.keyWorld}
+                                    value={this.state.keyWorld}
+                                    onChange={this.inputChange.bind(this)}
+                                />
                             </FormItem>
                         </Col>
                         <Col span={6}>
@@ -54,18 +99,19 @@ class AccountAdmin extends React.Component{
                                 {...formItemLayout}
                                 label="业务选择"
                             >
-                                <Select defaultValue={1}>
+                                <Select
+                                    name='busi'
+                                    value={this.state.busi} 
+                                    defaultValue={this.state.busi}
+                                    onChange={this.inputChange.bind(this)}
+                                >
                                     {
                                         mockList.Option.map( (item) => {
                                            return (
-                                                <Option key={item.value} value={item.value}>{item.label}</Option>
+                                                <Option ref='busi' key={item.value} value={item.value}>{item.label}</Option>
                                            )
                                        }) 
                                     }
-                                    
-                                    {/* <Option value="jack">Jack</Option>
-                                    <Option value="lucy">Lucy</Option>
-                                    <Option value="Yiminghe">yiminghe</Option> */}
                                 </Select>
                             </FormItem>
                         </Col>
@@ -74,7 +120,12 @@ class AccountAdmin extends React.Component{
                                 {...formItemLayout}
                                 label="地区"
                             >
-                                <Cascader  options={mockList.Cascader}  placeholder="Please select" />
+                                <Cascader  
+                                    options={mockList.Cascader}  
+                                    placeholder="Please select"
+                                    value={this.state.area}
+                                    onChange={this.inputChange.bind(this)}
+                                />
                             </FormItem>
                         </Col>
                         <Col span={6}>
@@ -82,16 +133,19 @@ class AccountAdmin extends React.Component{
                                 {...formItemLayout}
                                 label="日期选择"
                             >
-                                <RangePicker/>
+                                <RangePicker
+                                    value={this.state.RangePicker}
+                                    onChange={this.pickerChange.bind(this)}
+                                />
                             </FormItem>
                         </Col>
                     </Row>
                     <Row>
                         <Col span={6} offset={4}>
-                            <Button type="primary">搜索</Button>
+                            <Button type="primary" onClick={this.search.bind(this)}>搜索</Button>
                         </Col>
                         <Col span={6} offset={4}>
-                            <Button onClick={this.handleReset}>清空</Button>
+                            <Button onClick={this.handleReset.bind(this)}>清空</Button>
                         </Col>
                     </Row>
                 </Form>
@@ -118,7 +172,7 @@ function mapDispatchToProps(dispatch){
 	}  
 }  
 //连接组件  
-AccountAdmin = withRouter(connect(mapStateToProps, mapDispatchToProps)(AccountAdmin)) 
+AccountAdmin = withRouter(AccountAdmin)
 
 
 
