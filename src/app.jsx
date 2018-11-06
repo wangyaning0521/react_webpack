@@ -20,6 +20,7 @@ import {LayoutRouter,Login} from './router'
 //创建store
 let store = createStore(reducer);  
 class RouterComponent extends React.Component{
+
     render(){
         return (
             <Router>
@@ -32,6 +33,7 @@ class RouterComponent extends React.Component{
             </Router>
         )
     }
+    
 }
 //渲染组件      
 ReactDOM.render(
