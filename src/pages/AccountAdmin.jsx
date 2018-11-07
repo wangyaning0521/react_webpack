@@ -24,7 +24,8 @@ class AccountAdmin extends React.Component{
             keyWorld:'这是默认属性',
             busi:1,
             area:[],
-            RangePicker:[]
+            RangePicker:[],
+            showList:false
         }
 
     }
@@ -38,7 +39,8 @@ class AccountAdmin extends React.Component{
             keyWorld : '',
             busi:'',
             area:[],
-            RangePicker:[]
+            RangePicker:[],
+            RangeVal:[],
         })
     }
 
@@ -65,15 +67,21 @@ class AccountAdmin extends React.Component{
     }
 
     pickerChange( val, value){
+        
         this.setState({
-            RangePicker : val
+            RangePicker : val,
+            RangeVal : value
         })
+        console.log('11',this.state)
     }
     /**
      *  @event 搜索
      */
     search(){
         console.log( this.state )
+        this.setState({
+            showList : true
+        })
     }
 	render() {  
         return (
@@ -149,7 +157,25 @@ class AccountAdmin extends React.Component{
                         </Col>
                     </Row>
                 </Form>
-                
+                {
+                    this.state.showList && 
+                    <div>
+                        <ul>
+                            <li key='1'>
+                                关键字：{this.state.keyWorld}
+                            </li>
+                            <li key='2'>
+                                业务选择：{this.state.busi}
+                            </li>
+                            <li key='3'>
+                                地区：{this.state.area}
+                            </li>
+                            <li key='4'>
+                                日期选择：{this.state.RangeVal}
+                            </li>
+                        </ul>
+                    </div>
+                }
             </div>
         );  
 	}  

@@ -9,21 +9,11 @@ const { Header, Footer, Sider, Content } = Layouts;
 import { Menu, Icon, Breadcrumb,Dropdown} from 'antd';
 const SubMenu = Menu.SubMenu;
 
+import nav from './nav'
+
 import './index.less'
 
-const menu = (
-    <Menu>
-      <Menu.Item>
-        <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">1st menu item</a>
-      </Menu.Item>
-      <Menu.Item>
-        <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">2nd menu item</a>
-      </Menu.Item>
-      <Menu.Item>
-        <a target="_blank" rel="noopener noreferrer" href="http://www.tmall.com/">3rd menu item</a>
-      </Menu.Item>
-    </Menu>
-);
+
 export default class Layout extends  React.Component{
     constructor(props) {
         super(props)
@@ -54,20 +44,26 @@ export default class Layout extends  React.Component{
                 }
             ]
         };
-        this.onOpenChange = (openKeys) => {
-            const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1);
-            if (this.rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
-                this.setState({ openKeys 
-                });
-            } else {
-                this.setState({
-                    openKeys: latestOpenKey ? [latestOpenKey] : [],
-                });
-            }
-        }
+
         
     }
-    
+    /**
+     * 
+     * @param {*} openKeys dian
+     * 
+     */
+    onOpenChange (openKeys)  {
+        const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1);
+        if (this.rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
+            this.setState({ openKeys 
+            });
+        } else {
+            this.setState({
+                openKeys: latestOpenKey ? [latestOpenKey] : [],
+            });
+        }
+    }
+
 	render() {
         return (  
             <Layouts>
@@ -76,7 +72,7 @@ export default class Layout extends  React.Component{
                     <Menu
                         mode="inline"
                         openKeys={this.state.openKeys}
-                        onOpenChange={this.onOpenChange}
+                        onOpenChange={this.onOpenChange.bind(this)}
                     >
                         {
                             this.state.nav.map( (item,index) =>
@@ -94,20 +90,34 @@ export default class Layout extends  React.Component{
                 <Layouts>
                     <Header>
                         <Breadcrumb>
-                            <Breadcrumb.Item href="">
-                                <Icon type="home" />
-                            </Breadcrumb.Item>
-                            <Breadcrumb.Item href="">
-                                <Icon type="user" />
-                                <span>Application List</span>
-                            </Breadcrumb.Item>
-                            <Breadcrumb.Item>
-                                Application
-                            </Breadcrumb.Item>
+                            {
+                                nav.Breadcrumb.map( (item,index) => {
+                                    return(
+                                        <Breadcrumb.Item href="/" key={index}>
+                                            { item.type && <Icon type={item.type} /> }
+                                            { item.text && item.text }
+                                        </Breadcrumb.Item>
+                                    )
+                                })
+                            }
                         </Breadcrumb>
-                        <Dropdown overlay={menu}>
+                        <Dropdown 
+                            overlay={
+                                <Menu>
+                                    {
+                                        nav.menu.map( ( item, val ) => {
+                                            return (
+                                                <Menu.Item key={val} >
+                                                    <a target="_blank" rel="noopener noreferrer" href={ item.url }> { item.text } </a>
+                                                </Menu.Item>
+                                            )
+                                        })
+                                    }
+                                </Menu>
+                            }
+                        >
                             <a className="ant-dropdown-link" href="#">
-                            Hover me <Icon type="down" />
+                                业务选择 <Icon type="down" />
                             </a>
                         </Dropdown>
                     </Header>
