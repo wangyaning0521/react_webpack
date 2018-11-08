@@ -5,6 +5,7 @@ const path                =   require('path');
 const ExtractTextPlugin   =   require("extract-text-webpack-plugin");
 const webpack             =   require("webpack");
 
+console.log(process.env.NODE_ENV)
 module.exports = {
 	entry: './src/app.jsx',
 	output: {
@@ -89,7 +90,8 @@ module.exports = {
 	plugins: [
         // 处理html
 		new HtmlWebpackPlugin({ 
-			template: './src/index.html'
+            template: './src/index.html',
+            favicon : './src/favicon.ico'
         }),
         // 独立css文件
         new ExtractTextPlugin("css/[name].css"),
@@ -105,16 +107,26 @@ module.exports = {
         alias: {  
 			layout:     path.resolve(__dirname, 'src/layout'),
 			Component:  path.resolve(__dirname, 'src/Component'),
-			store:      path.resolve(__dirname, 'src/store'),
+            store:      path.resolve(__dirname, 'src/store'),
+            Axios:      path.resolve(__dirname, 'src/lib/http.jsx'),
         }  
     },
     // web服务器
     devServer: {
 		// 端口号
-		port: '8086',
+		port: '8081',
 		//用于指定目录为 dist 下的index  否则则会跳到根目录
 		historyApiFallback: {
 			index: '/dist/index.html'
+        },
+        proxy: {
+			'/api': {
+				target: 'http://172.16.86.100',
+				changeOrigin: true,
+				pathRewrite: {
+					'^/api': ''
+				}
+			}
 		}
     },
 };

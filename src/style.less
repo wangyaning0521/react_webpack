@@ -5,5 +5,89 @@ html,body{
 #app{
   width:100%;
   height: 100%;
-  background: url(./img/banner.jpg);
+}
+
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+a {
+	text-decoration: none;
+	color: #666666;
+	font-size: 14px;
+}
+
+ul, ol {
+	list-style: none;
+}
+
+body, html {
+	width: 100%;
+}
+
+body {
+	font-family: "微软雅黑", "宋体", "PingFang SC", Arial, "\5FAE\8F6F\96C5\9ED1","\5B8B\4F53";
+    -webkit-font-smoothing: antialiased;;
+    line-height: 1;
+    font-size: 14px;
+    color: #666666;;
+}
+
+h1, h2, h3, h4, h5 {
+	color: #333333;
+}
+
+h1 {
+	font-size: 24px;
+}
+
+input {
+	outline: none;
+}
+
+.container-fill {
+	width: 100%;
+}
+
+.container {
+	width: 1200px;
+	margin: 0 auto;
+}
+
+.center {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+.clearfix {}
+
+.clearfix:after {
+	content: '';
+	display: block;
+	height: 1px;
+	visibility: hidden;
+	clear: both;
+}
+
+
+.page-header{
+    font-size: 18px;
+    border-left : 2px solid #00b0b0;
+    padding-left: 10px;
 }
