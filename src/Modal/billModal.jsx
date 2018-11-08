@@ -6,7 +6,7 @@
 */
 import React from 'react';
 import axios from 'Axios'
-import bill from '../service/bill.jsx'
+import bill from 'service/bill/bill-service.jsx'
 
 import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete, Modal, Radio, InputNumber   } from 'antd';
 
