@@ -109,6 +109,7 @@ module.exports = {
 			Component:  path.resolve(__dirname, 'src/Component'),
             store:      path.resolve(__dirname, 'src/store'),
             Axios:      path.resolve(__dirname, 'src/lib/http.jsx'),
+            service:    path.resolve(__dirname, 'src/service'),
         }  
     },
     // web服务器
@@ -121,7 +122,7 @@ module.exports = {
         },
         proxy: {
 			'/api': {
-				target: 'http://172.16.86.100',
+				target: '111',
 				changeOrigin: true,
 				pathRewrite: {
 					'^/api': ''
