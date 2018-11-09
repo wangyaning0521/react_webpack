@@ -11,7 +11,8 @@ const SubMenu = Menu.SubMenu;
 
 import nav from './nav'
 
-import './index.less'
+import  styles from './index.less'
+
 
 
 export default class Layout extends  React.Component{
@@ -19,6 +20,7 @@ export default class Layout extends  React.Component{
         super(props)
         this.rootSubmenuKeys = ['sub1', 'sub2', 'sub4'];
         this.state = {
+            userInfo:{},
             openKeys: ['sub1'],
             nav:[
                 {
@@ -48,9 +50,7 @@ export default class Layout extends  React.Component{
         
     }
     /**
-     * 
-     * @param {*} openKeys dian
-     * 
+     * @param {*} openKeys 
      */
     onOpenChange (openKeys)  {
         const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1);
@@ -64,11 +64,23 @@ export default class Layout extends  React.Component{
         }
     }
 
+    componentDidMount(){
+        if(window.localStorage.inf !==null ){
+            this.setState({
+                userInfo : JSON.parse(window.localStorage.inf)
+            })
+            
+        }
+    }
+    
+
 	render() {
         return (  
-            <Layouts>
+            <Layouts >
                 <Sider>
-                    <img src={require('../img/logo.png')} />
+                    <div className={styles.imgWarper}>
+                        <img src={require('../images/react.jpg')} />    
+                    </div>
                     <Menu
                         mode="inline"
                         openKeys={this.state.openKeys}
@@ -101,6 +113,7 @@ export default class Layout extends  React.Component{
                                 })
                             }
                         </Breadcrumb>
+                           
                         <Dropdown 
                             overlay={
                                 <Menu>
@@ -108,7 +121,7 @@ export default class Layout extends  React.Component{
                                         nav.menu.map( ( item, val ) => {
                                             return (
                                                 <Menu.Item key={val} >
-                                                    <a target="_blank" rel="noopener noreferrer" href={ item.url }> { item.text } </a>
+                                                    <a target="_blank" rel="noopener noreferrer" href="javascript:void(0);"> { item.text } </a>
                                                 </Menu.Item>
                                             )
                                         })
@@ -116,9 +129,12 @@ export default class Layout extends  React.Component{
                                 </Menu>
                             }
                         >
-                            <a className="ant-dropdown-link" href="#">
-                                业务选择 <Icon type="down" />
-                            </a>
+                            <p href="javascript:void(0);" className={styles.userDom}>
+                                欢迎登陆：尊敬的
+                                <span className="ant-dropdown-link">
+                                    {this.state.userInfo.username} <Icon type="down" />
+                                </span>
+                            </p>
                         </Dropdown>
                     </Header>
                     <Content>{this.props.children}</Content>

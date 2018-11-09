@@ -1,17 +1,86 @@
 import React from 'react';
-import { Provider, connect } from 'react-redux'; 
-import { Button } from 'antd';
+import {  connect } from 'react-redux'; 
+import { Button, Icon, Col, Row,Card  } from 'antd';
 import { withRouter } from 'react-router'
-//定义组件  
+import main_mock from '../mock/main.jsx'
+import { NumberCard, LineChart, Weather, Quote, AreaChartPage }  from 'Component/main'
+import { color } from 'utils'
+import styles from '../style/App.less'
+console.log(styles)
+
 class App extends React.Component{
+
     constructor(props) {
         super(props)
-    } 
-	render() {  
-        const {size,add_size} = this.props;  
+    }
+
+    // 初始化
+    componentDidMount(){
+        if(window.localStorage.inf==null){
+            this.props.history.push('/login')
+        }
+    }
+
+	render() {
+
+        const numberCards = main_mock.NumberCar.map((item, key) => (<Col className='main-cardCol' key={key} lg={6} md={12}>
+            <NumberCard {...item} />
+          </Col>))
+
         return (  
-            <div>
-                <h1>这是首页</h1>
+            <div className={styles.home}>
+                <span className={styles['home-title']}>
+                    <Icon type="bar-chart" />
+                    首页
+                </span>
+                <Row>
+                    {numberCards}
+                    <Col lg={18} md={24} className='mar0tm10'>
+                        <Card bordered={false}
+                        >
+                            <LineChart />
+                        </Card>
+                    </Col>
+                    <Col lg={6} md={24} className='mar0tm10'>
+                        <Row gutter={24}>
+                            <Col lg={24} md={12}>
+                                <Card bordered={false}
+                                    className='weather'
+                                    bodyStyle={{
+                                        padding: 0,
+                                        height: 204,
+                                        background: color.blue,
+                                    }}
+                                >
+                                    <Weather {...main_mock.weater} />
+                                </Card>
+                            </Col>
+                            <Col lg={24} md={12}>
+                                <Card bordered={false}
+                                    className='quote'
+                                    bodyStyle={{
+                                        padding: 0,
+                                        height: 204,
+                                        marginTop:'20px',
+                                        background: color.peach,
+                                    }}
+                                >
+                                    <Quote {...main_mock.quote} />
+                                </Card>
+                            </Col>
+                            
+                        </Row>
+                    </Col>
+                    <Col lg={24} md={24} className='mar0tm10 mt20'>
+                        <Card bordered={false}
+                            bodyStyle={{
+                                padding: '24px 36px 24px 0',
+                            }}
+                        >
+                            <AreaChartPage />
+                        </Card>
+                    </Col>
+                </Row>
             </div>  
         );  
 	}  

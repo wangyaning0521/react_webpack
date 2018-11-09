@@ -5,24 +5,21 @@ export default {
         },
         {
             type:'user',
-            text:'Application List'
+            text:'系统管理'
         },
         {
-            text:'Application'
+            text:'账单管理'
         }
     ],
     menu : [
         {
-            text: '业务中心',
-            url : ''
+            text: '消息',
         },
         {
-            text: '客服中心',
-            url : ''
+            text: '修改密码',
         },
         {
-            text: '云计算',
-            url : ''
+            text: '退出',
         }
     ]
 }

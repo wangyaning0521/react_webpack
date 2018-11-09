@@ -74,9 +74,9 @@ class Login extends React.Component{
 	render() {
         const { getFieldDecorator } = this.props.form;
         return (  
-            <div className='form'>
+            <div className='Loginform'>
                 <div className='logo'>
-                    <img alt="logo" src='/src/img/logo.svg' />
+                    <img alt="logo" src='/src/images/logo.svg' />
                     <span>你好，react</span>
                 </div>
                 <form>

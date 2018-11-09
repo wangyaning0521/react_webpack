@@ -1,0 +1,25 @@
+.AreaChartName{
+    float: right;
+    li{
+        float: left;
+        margin-right:30px;
+    }
+    li::before{
+        content: '';
+        display: inline-block;
+        width:10px;
+        height: 10px;
+        border-radius:100%;
+        margin-right: 10px;
+        
+    }
+    li:nth-child(1)::before{
+        background: #d897eb!important;
+    }
+    li:nth-child(2)::before{
+        background: #f69899!important;
+    }
+    li:nth-child(3)::before{
+        background: #64ea91!important;
+    }
+}
