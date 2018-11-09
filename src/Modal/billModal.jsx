@@ -7,7 +7,7 @@
 import React from 'react';
 import axios from 'Axios'
 import bill from 'service/bill/bill-service.jsx'
-
+import { connect } from 'react-redux'; 
 import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete, Modal, Radio, InputNumber   } from 'antd';
 
 const FormItem = Form.Item;
@@ -37,6 +37,7 @@ class BillFrom extends React.Component{
             visible:this.props.BillShow,
             plugList: []
         }
+        console.log(this.props)
     }
 
     componentDidMount(){
@@ -67,13 +68,14 @@ class BillFrom extends React.Component{
     }
     // 表单提交
     handleSubmit() {
-        this.setState({
-            visible: false
-        })
         this.props.form.validateFields(
             (err , val ) => {
                 if (!err) {
-                    this.props.handleFrom( false, val )
+                    this.setState({
+                        visible: false
+                    })
+                    this.props.handleFrom( false )
+                    this.props.ADD_USER( val )
                 }
             },
         );
@@ -206,5 +208,19 @@ class BillFrom extends React.Component{
     }
 }
 
+const mapStateToProps =  (state ) =>{
+    return  { userInfoList: state.usersAction.userInfoList } 
+}
+const mapDispatchToProps = ( dispatch ) =>{
+    return{  
+
+        ADD_USER : ( val ) => dispatch({
+            type      : 'ADD_USER',
+            userInfo  : val
+        }),
+
+	}
+}
+
 const BillModal = Form.create()(BillFrom);
-export default BillModal;
+export default connect(mapStateToProps, mapDispatchToProps)(BillModal);

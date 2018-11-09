@@ -10,7 +10,7 @@ const Axios = axios.create({
 	responseType: 'json',
 	withCredentials: true, 
 	headers: {
-        'token'       : '39a7202e-7e74-4492-9f74-d40fa6f91343',
+        'token'       : 'fe6f8493-d9f2-46cd-8532-3d1cc3a4718e',
 		'email'       : "1@1.com",
 		'Content-Type': 'application/json;charset=UTF-8',
 	}

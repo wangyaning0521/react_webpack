@@ -43,7 +43,7 @@ module.exports = {
 			},
             // css
 			{
-				test: /\.css$/,
+                test: /\.css$/,
 				use: ExtractTextPlugin.extract({
 					fallback: "style-loader",
 					use: "css-loader"
@@ -51,10 +51,11 @@ module.exports = {
             },
             // less
 			{
-				test: /\.less$/,
+                test: /\.less$/,
+                exclude:[/node_modules/],
 				use: ExtractTextPlugin.extract({
 					fallback: "style-loader",
-					use: ['css-loader', 'less-loader']
+					use: ['css-loader?modules', 'less-loader']
 				})
             },
             // img
@@ -110,6 +111,7 @@ module.exports = {
             store:      path.resolve(__dirname, 'src/store'),
             Axios:      path.resolve(__dirname, 'src/lib/http.jsx'),
             service:    path.resolve(__dirname, 'src/service'),
+            utils:      path.resolve(__dirname, 'src/utils'),
         }  
     },
     // web服务器
@@ -122,7 +124,7 @@ module.exports = {
         },
         proxy: {
 			'/api': {
-				target: '111',
+				target: '123123123',
 				changeOrigin: true,
 				pathRewrite: {
 					'^/api': ''

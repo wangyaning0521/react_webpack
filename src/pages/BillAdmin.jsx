@@ -1,10 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux'; 
 import { withRouter } from 'react-router'
 import fetch from 'Axios'
 import { Table, Button  } from 'antd';
 import PageTitle    from '../component/page-title/index.jsx'
 import BillModal    from '../Modal/billModal.jsx'
-import '../style/BillAdmin.less'
+import style from '../style/BillAdmin.less'
 /**
  * 表格表头
  */
@@ -22,6 +23,7 @@ const columns = [
     },
 ];
 class BillAdmin extends React.Component{
+    
     constructor(props){
         super(props)
         this.state = {
@@ -42,18 +44,12 @@ class BillAdmin extends React.Component{
     }
 
     // 子穿父
-    handleFrom( layer, val ){
+    handleFrom( layerl ){
         setTimeout( () =>{
             this.setState({
                 BillShow: layer
             })
         },500)
-        if( val ){
-            this.setState({
-                data : [...this.state.data, val]
-            })
-        }
-       
     }
 
     render(){
@@ -68,7 +64,7 @@ class BillAdmin extends React.Component{
 
                 <PageTitle title='人员列表' />
 
-                <Table  size='small' columns={columns} dataSource={this.state.data}  />
+                <Table  size='small' columns={columns} dataSource={this.props.userInfoList}  />
                 
                 {
                     this.state.BillShow && <BillModal BillShow={this.state.BillShow} handleFrom={this.handleFrom.bind(this)}/>
@@ -77,4 +73,9 @@ class BillAdmin extends React.Component{
         )
     }
 }
-export default withRouter(BillAdmin)
+
+const mapStateToProps =  (state ) =>{
+    return  { userInfoList: state.usersAction.userInfoList } 
+}
+
+export default withRouter(connect(mapStateToProps)(BillAdmin))
