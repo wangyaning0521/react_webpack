@@ -19,32 +19,7 @@ const Axios = axios.create({
 // 开始设置请求 发起的拦截处理
 // config 代表发起请求的参数的实体
 Axios.interceptors.request.use(config => {
-    // 得到参数中的 requestName 字段，用于决定下次发起请求，取消对应的 相同字段的请求
-    // 如果没有 requestName 就默认添加一个 不同的时间戳
-    let requestName
-    if(config.method === 'post'){
-        if(config.data && config.data.requestName){
-            requestName = config.data.requestName
-        }else{
-            requestName = new Date().getTime()
-        }
-    }else{
-        if(config.params && config.params.requestName){
-            requestName = config.params.requestName
-        }else{
-            requestName = new Date().getTime()
-        }
-    }
-    // 判断，如果这里拿到的参数中的 requestName 在上一次请求中已经存在，就取消上一次的请求
-    // if (requestName) {
-    //     if (axios[requestName] && axios[requestName].cancel) {
-    //         axios[requestName].cancel()
-    //     }
-    //     config.cancelToken = new CancelToken(c => {
-    //         axios[requestName] = {}
-    //         axios[requestName].cancel = c
-    //     })
-    // }
+    console.log(config)
     return config
 }, error => {
     return Promise.reject(error)

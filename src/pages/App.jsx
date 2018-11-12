@@ -16,7 +16,7 @@ class App extends React.Component{
 
     // 初始化
     componentDidMount(){
-        if(window.localStorage.inf==null){
+        if ( !window.localStorage.inf ){
             this.props.history.push('/login')
         }
     }
