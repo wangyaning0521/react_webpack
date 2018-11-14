@@ -37,7 +37,6 @@ class BillFrom extends React.Component{
             visible:this.props.BillShow,
             plugList: []
         }
-        console.log(this.props)
     }
 
     componentDidMount(){

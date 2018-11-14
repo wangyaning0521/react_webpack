@@ -10,8 +10,6 @@ const Axios = axios.create({
 	responseType: 'json',
 	withCredentials: true, 
 	headers: {
-        'token'       : 'fe6f8493-d9f2-46cd-8532-3d1cc3a4718e',
-		'email'       : "1@1.com",
 		'Content-Type': 'application/json;charset=UTF-8',
 	}
 })
@@ -19,7 +17,16 @@ const Axios = axios.create({
 // 开始设置请求 发起的拦截处理
 // config 代表发起请求的参数的实体
 Axios.interceptors.request.use(config => {
-    console.log(config)
+
+    if( window.localStorage.inf ){
+
+        var inf  = JSON.parse(window.localStorage.inf)
+      
+        config.headers.token = inf.token
+        config.headers.email = inf.email
+
+    }
+
     return config
 }, error => {
     return Promise.reject(error)
@@ -28,6 +35,9 @@ Axios.interceptors.request.use(config => {
 // 请求到结果的拦截处理
 Axios.interceptors.response.use(config => {
     // 返回请求正确的结果
+    if (config.data.code == 801 || config.data.code == 802 || config.data.code == 803 || config.data.code == 804) { 
+        window.location.href='/login'
+    }
     return config
 }, error => {
     // 错误的请求结果处理，这里的代码根据后台的状态码来决定错误的输出信息

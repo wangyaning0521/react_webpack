@@ -65,7 +65,6 @@ export default class Layout extends  React.Component{
     }
 
     componentDidMount(){
-        console.log()
         if( window.localStorage.inf ){
             this.setState({
                 userInfo : JSON.parse(window.localStorage.inf)

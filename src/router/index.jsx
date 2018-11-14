@@ -13,12 +13,14 @@ import BillAdminContainer from 'bundle-loader?lazy&name=app-[billAdmin]!../pages
 import LoginContainer from 'bundle-loader?lazy&name=app-[Login]!../pages/Login';
 import AppContainer from 'bundle-loader?lazy&name=app-[App]!../pages/App';
 import AccountAdminContainer from 'bundle-loader?lazy&name=app-[App]!../pages/AccountAdmin';
+import BillDetailsContainer from 'bundle-loader?lazy&name=app-[App]!../pages/billDetails';
 
 const BusinessAdmin = () => (<Bundle load={BusinessAdminContainer}>{(BusinessAdmin) => <BusinessAdmin />}</Bundle>)
 const BillAdmin = () => (<Bundle load={BillAdminContainer}>{(BillAdmin) => <BillAdmin />}</Bundle>)
 const App = () => (<Bundle load={AppContainer}>{(App) => <App />}</Bundle>)
 const Login = () => (<Bundle load={LoginContainer}>{(Login) => <Login />}</Bundle>)
 const AccountAdmin = () => (<Bundle load={AccountAdminContainer}>{(AccountAdmin) => <AccountAdmin />}</Bundle>)
+const BillDetails = () => (<Bundle load={BillDetailsContainer}>{(BillDetails) => <BillDetails />}</Bundle>)
 
 const LayoutRouter = (
     <Layout >
@@ -26,6 +28,7 @@ const LayoutRouter = (
             <Route path='/billAdmin/:number' component={BillAdmin} />
             <Route path='/BusinessAdmin/:num' component={BusinessAdmin} />
             <Route path='/AccountAdmin' component={AccountAdmin} />
+            <Route path='/BillDetails/:id' component={BillDetails} />
             <Route path='/' exact component={App}/>  
         </Switch>
     </Layout>

@@ -11,5 +11,11 @@ module.exports = {
       grass: '#d6fbb5',
       sky: '#c1e0fc',
     },
+    local : {
+        filterConfirm: '确定',
+        filterReset: '重置',
+        emptyText: '暂无数据'
+    },
+    operId: window.localStorage.inf ? JSON.parse(window.localStorage.inf).id : ''
   }
   

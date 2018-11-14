@@ -6,7 +6,7 @@ import main_mock from '../mock/main.jsx'
 import { NumberCard, LineChart, Weather, Quote, AreaChartPage }  from 'Component/main'
 import { color } from 'utils'
 import styles from '../style/App.less'
-console.log(styles)
+
 
 class App extends React.Component{
 

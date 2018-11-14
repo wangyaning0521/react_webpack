@@ -3,8 +3,6 @@ import PropTypes from 'prop-types'
 import { Spin } from 'antd'
 import styles from './weather.less'
 
-console.log(11)
-console.log(styles)
 
 
 class Weather extends React.Component{

@@ -1,206 +1,104 @@
+
+
 import React from 'react';
-import {  connect } from 'react-redux'; 
+import { connect } from 'react-redux'; 
 import { withRouter } from 'react-router'
-import { Form, Input, DatePicker, Col, TimePicker, Select, Cascader, InputNumber, Row, Button } from 'antd';
-import mockList from  '../mock/accountAdmin'
-const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
-
-const FormItem = Form.Item;
-const Option = Select.Option;
-
-import '../style/AccountAdmin.less'
-
-const formItemLayout = {
-    labelCol: { span: 6,   },
-    wrapperCol: { span: 18,  },
-};
+import fetch from 'Axios'
+import { Table, Button, Popconfirm  } from 'antd';
+import PageTitle    from '../component/page-title/index.jsx'
+import BillModal    from '../Modal/billModal.jsx'
+import style from '../style/BillAdmin.less'
+/**
+ * 表格表头
+ */
 
 class AccountAdmin extends React.Component{
-    constructor(props) {
-
+    
+    constructor(props){
         super(props)
-
         this.state = {
-            keyWorld:'这是默认属性',
-            busi:1,
-            area:[],
-            RangePicker:[],
-            showList:false
-        }
-
-    }
-
-    /**
-     *  @event 清空
-     */
-
-    handleReset () {
-        this.setState({
-            keyWorld : '',
-            busi:'',
-            area:[],
-            RangePicker:[],
-            RangeVal:[],
-        })
-    }
-
-    /**
-     *  @event 通用表单
-     */
-
-    inputChange  ( val, option ) {
-       
-        let name, value;
-
-        if ( Array.prototype.isPrototypeOf( val ) ) {
-            name  = 'area'
-            value =  val
-        }
-        else{
-            name  = option ? option.ref : val.target.name
-            value = option ? val        : val.target.value
-        }
-
-        this.setState({
-            [name] : value
-        })
-    }
-
-    pickerChange( val, value){
-        
-        this.setState({
-            RangePicker : val,
-            RangeVal : value
-        })
-        console.log('11',this.state)
-    }
-    /**
-     *  @event 搜索
-     */
-    search(){
-        console.log( this.state )
-        this.setState({
-            showList : true
-        })
-    }
-	render() {  
-        return (
-            <div className='AccountAdmin'>
-                <Form >
-                    <Row>
-                        <Col span={6}>
-                            <FormItem
-                                {...formItemLayout} 
-                                label="关键字"
-                            >
-                                <Input 
-                                    ref='keyWorld'
-                                    name='keyWorld' 
-                                    defaultValue={this.state.keyWorld}
-                                    value={this.state.keyWorld}
-                                    onChange={this.inputChange.bind(this)}
-                                />
-                            </FormItem>
-                        </Col>
-                        <Col span={6}>
-                            <FormItem
-                                {...formItemLayout}
-                                label="业务选择"
-                            >
-                                <Select
-                                    name='busi'
-                                    value={this.state.busi} 
-                                    defaultValue={this.state.busi}
-                                    onChange={this.inputChange.bind(this)}
-                                >
-                                    {
-                                        mockList.Option.map( (item) => {
-                                           return (
-                                                <Option ref='busi' key={item.value} value={item.value}>{item.label}</Option>
-                                           )
-                                       }) 
-                                    }
-                                </Select>
-                            </FormItem>
-                        </Col>
-                        <Col span={6}>
-                            <FormItem
-                                {...formItemLayout}
-                                label="地区"
-                            >
-                                <Cascader  
-                                    options={mockList.Cascader}  
-                                    placeholder="Please select"
-                                    value={this.state.area}
-                                    onChange={this.inputChange.bind(this)}
-                                />
-                            </FormItem>
-                        </Col>
-                        <Col span={6}>
-                            <FormItem
-                                {...formItemLayout}
-                                label="日期选择"
-                            >
-                                <RangePicker
-                                    value={this.state.RangePicker}
-                                    onChange={this.pickerChange.bind(this)}
-                                />
-                            </FormItem>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col span={6} offset={4}>
-                            <Button type="primary" onClick={this.search.bind(this)}>搜索</Button>
-                        </Col>
-                        <Col span={6} offset={4}>
-                            <Button onClick={this.handleReset.bind(this)}>清空</Button>
-                        </Col>
-                    </Row>
-                </Form>
+            data : [],
+            BillShow:false,
+            columns : [
+                { title: '姓名',   dataIndex: 'name',    align:'center',  },
+                { title: '性别',   dataIndex: 'sex',     align:'center',  },
+                { title: '年龄',   dataIndex: 'age',     align:'center',  },
+                { title: '地址',   dataIndex: 'site',    align:'center',  },
+                { title: '居住地', dataIndex: 'address', align:'center',  },
                 {
-                    this.state.showList && 
-                    <div>
-                        <ul>
-                            <li key='1'>
-                                关键字：{this.state.keyWorld}
-                            </li>
-                            <li key='2'>
-                                业务选择：{this.state.busi}
-                            </li>
-                            <li key='3'>
-                                地区：{this.state.area}
-                            </li>
-                            <li key='4'>
-                                日期选择：{this.state.RangeVal}
-                            </li>
-                        </ul>
-                    </div>
+                    title: '操作',
+                    key: 'operation',
+                    width: 100,
+                    render: (text, record, index) => {
+                        return (
+                            <Popconfirm 
+                                title="是否将这条信息删除" 
+                                onConfirm={ this.handleDelete.bind(this, text, record, index )} 
+                                okText="确定" 
+                                cancelText="取消"
+                            >
+                                <a href="javascript:;" >删除</a>
+                            </Popconfirm>
+                        )
+                    }
+                },
+            ]
+        }
+    }
+    
+    // 删除
+    handleDelete(text, record, index){
+        this.props.DELETE_USER(index)
+    }
+    // 打开弹框
+    addUser(){
+        this.setState({
+            BillShow : !this.state.BillShow
+        })        
+    }
+
+    // 子穿父
+    handleFrom( layer ){
+        setTimeout( () =>{
+            this.setState({
+                BillShow: layer
+            })
+        },500)
+    }
+
+    render(){
+        return(
+            <div className='BillAdmin'>
+
+                <PageTitle title='添加人员信息' />
+
+                <div className='button-Warp'>
+                    <Button type="primary" onClick={this.addUser.bind(this)}>添加人员信息</Button>
+                </div>
+
+                <PageTitle title='人员列表' />
+
+                <Table   size='small' rowKey={(record, index) => `complete${record.name}${index}`} columns={this.state.columns}  dataSource={this.props.userInfoList}  />
+                
+                {
+                    this.state.BillShow && <BillModal BillShow={this.state.BillShow} handleFrom={this.handleFrom.bind(this)}/>
                 }
             </div>
-        );  
-	}  
+        )
+    }
 }
 
-
-
-
-//映射Redux state到组件的属性  
-function mapStateToProps(state) {
-	return { size: state.size}  
-}  
-//映射Redux actions到组件的属性  
-function mapDispatchToProps(dispatch){  
-	return{  
-        add_size:()=>dispatch({
-            type:'ADD_SIZE',
-            size:10
+const mapStateToProps =  (state ) =>{
+    return  { userInfoList: state.usersAction.userInfoList } 
+}
+const mapDispatchToProps = ( dispatch ) =>{
+    return{  
+        DELETE_USER : ( index ) => dispatch({
+            type      : 'DELETE_USER',
+            index,
         }),
-	}  
-}  
-//连接组件  
-AccountAdmin = withRouter(AccountAdmin)
 
+	}
+}
 
-
-
-export default AccountAdmin
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AccountAdmin))

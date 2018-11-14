@@ -1,6 +1,8 @@
 {
-  "presets": ["es2015"],
+  "presets": ["stage-0", "env", "react"],
   "plugins": [
-    ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": "css" }] // `style: true` 会加载 less 文件
+    ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": "css" }], // `style: true` 会加载 less 文件
+    "transform-runtime"
   ]
+ 
 }

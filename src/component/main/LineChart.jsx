@@ -5,7 +5,6 @@ import main_mock from '../../mock/main'
 
 import styles from './LineChart.less'
 
-console.log(styles)
 class LineCharts extends React.Component{
     constructor(props) {
         super(props)
