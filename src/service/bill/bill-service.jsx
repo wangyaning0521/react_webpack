@@ -39,6 +39,15 @@ class bill {
             data,
         })
     }
+    // 账单详情
+    detailsPlug( data ){
+        return axios({
+            method : 'post',
+            url    : '/qthl-wf-busi/api/finaReportManager/detail',
+            data,
+        })
+    }
+    // 列表下拉账单
     statusPlug(){
         return {
             code : 0,

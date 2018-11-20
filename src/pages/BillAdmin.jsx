@@ -4,7 +4,6 @@ import { withRouter } from 'react-router'
 import { fromJS }     from 'immutable'
 import { labelValue, local, operId } from 'utils'
 
-
 import { Form, Input, DatePicker, Col, TimePicker, Select, Cascader, InputNumber, Row, Button, Table } from 'antd';
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
 const FormItem = Form.Item;
@@ -98,7 +97,7 @@ class BillAdmin extends React.Component{
                 },
                 {
                     title: '操作',  dataIndex: 'operation',   width: 100,
-                    render( text, record, index ){
+                    render(text,record, index){
                         return (
                             <div>
                                 <Button onClick={self.lookDetails.bind(self, record.id)}>查看</Button>

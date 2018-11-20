@@ -1,31 +1,43 @@
 import React from 'react';
-import { Provider, connect } from 'react-redux'; 
 import { withRouter } from 'react-router'
 import { Button } from 'antd';
+
+
+import AddBusi from 'Component/busi/add-busi.jsx'
 class BusinessAdmin extends React.Component{
     constructor(props){
         super(props)
+        this.state={
+            addShow : false
+        }
     }
+
+    handleCancel(){
+        setTimeout( () =>{
+            this.setState({
+                addShow: false
+            })
+        },500)
+    }
+
+    AddUser(){
+        this.setState({
+            addShow: true
+        })
+    }
+
     render(){
+        let { addShow } = this.state
         return(
             <div >
-                <h1>业务管理</h1>
-                <h2> 路由获取 ： {this.props.match.params.num}</h2>
-                <Button onClick={this.props.add_size}>redux 相加</Button>
+                <Button onClick={ this.AddUser.bind(this) }>单增</Button>
+                {
+                    addShow &&  <AddBusi addShow={addShow} handleCancel = { this.handleCancel.bind(this) }></AddBusi>
+                }
             </div>
         )
     }
 }
 
-//映射Redux state到组件的属性  
-function mapStateToProps(state) {
-}  
-//映射Redux actions到组件的属性  
-function mapDispatchToProps(dispatch){
-}  
-
-//连接组件  
-// Bar = 
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(BusinessAdmin) )
+export default withRouter(BusinessAdmin)
 

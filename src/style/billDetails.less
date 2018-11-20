@@ -1,5 +1,5 @@
 .billHeader{
-    background: #00b0b0;
+    background:#F8F8FF;
     height: 30px;
     line-height: 30px;
     padding: 0 10px;
@@ -42,14 +42,16 @@
 .gridStyle{
     width: '25%';
     text-align: 'center';
-    padding:20px 20px 0 20px!important;
+    padding:20px 20px 10px 20px!important;
     p{
         color: #00b0b0;
         font-size: 12px;
+        height: 12px;
     }
     p:nth-child(3){
         display: flex;
-        color: #000;
+        height: 30px;;
+        color: #999;
         span{
             flex: 1;
             text-align: center;
@@ -61,7 +63,89 @@
             color:#fff;
         }
     }
+    
 }
 .Card{
     margin-top: 10px!important;
+}
+:global{
+    .Card{
+        .ant-card-head{
+            height:30px;
+            min-height: 30px;
+            
+            &-warpper{
+                height:30px;
+                min-height: 30px;
+                
+            }
+            &-title{
+                font-size: 14px;
+                padding:0;
+                color:#999;
+                height: 30px;
+                line-height: 30px;
+            }
+        }
+        .anticon-arrow-right {
+            margin-right: 20px;
+        }
+        
+    }
+}
+.information{
+    span{
+        margin-right: 20px;
+        font-size: 12px;
+    }
+    strong{
+        font-weight: normal;
+        color:#999;
+    }
+    
+}
+.account{
+    margin-top:10px;
+    p{
+        margin-bottom: 0;
+        font-size: 12px;
+        color: #999;
+    }
+    > p:nth-child(2){
+        margin-bottom:10px;
+        text-indent: 1em;
+    }
+}
+
+.row{
+    font-size: 12px;
+    height: 30px;
+    line-height: 30px;
+    color: #999;
+    border-top:1px solid #999; 
+    border-left:1px solid #999; 
+    border-right:1px solid #999; 
+    p{
+        margin-bottom: 0px;
+    }
+}
+.row:last-child{
+    border-bottom:1px solid #999; 
+}
+.description{
+    padding-left: 20px;
+    
+}
+.name{
+    text-align: right;
+    padding-right: 30px;
+    border-right:1px solid #999; 
+}
+.btn{
+    display: flex;
+    span{
+        flex: 1;
+        color:#00b0b0;
+        cursor: pointer;
+    }
 }
